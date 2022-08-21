@@ -15,19 +15,19 @@ menu_layout = [
 ]
 
 
-todo_tasks = create_or_read_from_file("todo_tasks.txt")
 
-completed_tasks = create_or_read_from_file("completed_tasks.txt")
-
-
-class Layout:
+class Category:
     
     def __init__(self, name: str) -> None:
+        self.todo_tasks: list[Any] = create_or_read_from_file(f"{name}_todo_tasks.txt")
+
+        self.completed_tasks = create_or_read_from_file(f"{name}_completed_tasks.txt")
+        
         self.layout: list[Any] = []
        # self.layout.append(sg.Menu(menu_layout))
         self.layout.append([sg.Text("Todo")])
-        self.layout.append([sg.InputText("", key="todo_item"), sg.Button(button_text="Add", key="add_save")])
+        self.layout.append([sg.InputText("", key=f"{name}_todo_item"), sg.Button(button_text="Add", key=f"{name}_add_save")])
         self.layout.append([sg.Text("Todo List")])
-        self.layout.append([sg.Listbox(values=todo_tasks, size=(40,15), key="-TODO_TASKS-"),sg.Button("Complete"), sg.Button("Delete", key="-TODO_DELETE-"), sg.Button("Edit")])
+        self.layout.append([sg.Listbox(values=self.todo_tasks, size=(50,15), key=f"-{name.upper()}_TODO_TASKS-"),sg.Button("Complete", key=f"{name}_complete"), sg.Button("Delete", key=f"-{name.upper()}_TODO_DELETE-"), sg.Button("Edit")])
         self.layout.append([sg.Text("Completed List")])
-        self.layout.append([sg.Listbox(values=completed_tasks, size=(40,15), key="-COMPLETED_TASKS-"),sg.Button("Delete", key='-COMPLETED_DELETE-')])
+        self.layout.append([sg.Listbox(values=self.completed_tasks, size=(50,15), key=f"-{name.upper()}_COMPLETED_TASKS-"),sg.Button("Delete", key=f'-{name.upper()}_COMPLETED_DELETE-')])
