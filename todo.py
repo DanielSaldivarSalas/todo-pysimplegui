@@ -3,6 +3,12 @@ import PySimpleGUI as sg
 from file_functions import append_to_file, overwrite_file
 from layouts import Category
 
+# TODO: be able to move around tasks
+
+# TODO: Be able to edit tasks
+
+# TODO: BUG: We should not be able to delete if something isn't selected
+
 sg.set_options(font= "Calibri 15")
 
 today_category: Category = Category("today")
